@@ -1,3 +1,5 @@
+# Local repository: D:\GitHub\DL_with_R
+# Github: https://github.com/lydia126/DL_with_R/commits/master/
 # 3.6.1 The Boston Housing Price dataset
 
 #1)  Loading the Boston housing datase
