@@ -1,2 +1,5 @@
 # Rdata
 *.Rdata
+*.zip
+*.jpg
+*.csv
