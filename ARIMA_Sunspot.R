@@ -2,6 +2,9 @@
 
 # 2.0 Data
 library(padr)
+library(dplyr)
+library(lubridate)
+library(forecast)
 
 sunspot <- read.csv("Sunspots.csv") 
 glimpse(sunspot)
@@ -95,3 +98,23 @@ Box.test(model_11yr_22yr$residuals, type = "Ljung-Box")
 shapiro.test(model_11yr_22yr$residuals)
 hist(model_11yr_22yr$residuals, breaks=50)
 length(model_11yr_22yr$residuals)
+
+# autoarima model
+library(tseries)
+adf.test(sunspot_11yr_22yr_70yr_train)
+ndiffs(sunspot_11yr_22yr_70yr_train)
+plot(sunspot_11yr_22yr_70yr_train)
+acf(sunspot_11yr_22yr_70yr_train, lwd=2,
+    main="AUtocorrelation for sunspot")
+pacf(sunspot_11yr_22yr_70yr_train, lwd=2,
+     main="Partial autocorrelation of suspot")
+
+sunspot.arima <- auto.arima(sunspot_11yr_22yr_70yr_train)
+# sunspot.arima1 <- arima(sunspot_11yr_22yr_70yr, order=c(5,0,1),
+#                   seasonal = list(order=c(0,1,1), period=11))
+forecast(sunspot.arima, h=11*12)
+plot(forecast(sunspot.arima, h=11*12), col="darkorange", lwd=2,
+     flty=1, flwd=3,
+     fcol="orangered", shadecols = c("lavender","skyblue"),
+     xlab="Year", ylab="Sunspot",
+     main="Forecast for Sunspot for 11 years")
